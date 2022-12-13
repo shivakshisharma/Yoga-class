@@ -1,0 +1,40 @@
+.error{
+    font-size: 14px;
+    padding: 8px;
+    background-color: red;
+    color: white;
+    word-break: break-all;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    animation:  shake 0.2s;
+    max-width: 350px;
+}
+.error div{
+  width: 90%;
+}
+.errorIcon{
+    font-size: 18px;
+    color: white;
+    margin-right: 10px;
+}
+@keyframes shake{
+    0%{
+      transform: translateX(0)
+    }
+    20%{
+      transform: translateX(10px);
+    }
+    40%{
+      transform: translateX(-10px);
+    }
+    60%{
+      transform: translateX(10px);
+    }
+    80%{
+      transform: translateX(-10px);
+    }
+    100%{
+      transform: translateX(0px);
+    }
+  }

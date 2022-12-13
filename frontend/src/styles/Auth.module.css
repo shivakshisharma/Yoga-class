@@ -1,0 +1,50 @@
+.AuthPage{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.left{
+    flex: 0.6;
+    background-image: url('../assets/yoga.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.leftContent{
+    margin-left: 50px;
+}
+.right{
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.rightContent{
+    min-width: 60%;
+}
+.top{
+    margin-top: 40px;
+}
+.bottom{
+    margin-bottom: 40px;
+}
+.links{
+    text-align: center;
+    text-decoration-line: none;
+}
+
+@media screen and (max-width: 768px) {
+    .left{
+        flex:0;
+        display: none;
+    }
+    .right{
+        flex: 1;
+    }
+    .rightContent{
+        min-width: 80%;
+    }
+}

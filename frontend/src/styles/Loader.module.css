@@ -1,0 +1,18 @@
+.loader {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: auto;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    animation: _360degAnimation 500ms linear infinite;
+  }
+  
+  @keyframes _360degAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

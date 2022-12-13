@@ -1,0 +1,14 @@
+.home {
+    min-height: 100vh;
+    background-image: url('../assets/Bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.margin{
+    margin-block: 30px;
+}
