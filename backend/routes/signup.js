@@ -33,7 +33,7 @@ module.exports = (app) =>{
    *         description: Successfully Registered ! we have sent you a verification email please verify your account
    */
     app.post('/api/signup', async (req,res)=>{
-        const{name, password:plaintextPassword, email,age} = req.body;
+        const{name, password:plaintextPassword, email, dob, batch} = req.body;
         console.log('registering user with ',req.body);
         if(!valid.emailValid(email)){
             return res.status(400).json({status:'fail',message:'Invalid email address!'})
@@ -42,8 +42,6 @@ module.exports = (app) =>{
             return res.status(400).json({status:'fail',message:'Password must be eight characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character.'})
         
         }
-        if(age<18&&age>65)
-        return res.status(400).json({status:'fail',message:'Unappropriate Age!'})
 
         const password = await bcryptjs.hash(plaintextPassword,10)
         console.log('your password after bcrypt: ',password);
@@ -52,8 +50,9 @@ module.exports = (app) =>{
                 name: name,
                 email: email,
                 username: email,
-                age:age,//new
-                password: password
+                password: password,
+                dob,
+                batch
             })
             res.status(201).json({status:"ok",message:'Successfully Registered ! we have sent you a verification email please verify your account'})
             const verifyToken = jwt.sign({id:response._id},process.env.JWT_SECRET);

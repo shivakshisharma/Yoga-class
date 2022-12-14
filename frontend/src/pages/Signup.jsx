@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import classes from '../styles/Auth.module.css'
+import inputClasses from '../styles/Input.module.css'
 import { Input, Button } from '../components'
 import { Link, useHistory, Redirect} from 'react-router-dom'
 import Api from '../apis'
@@ -10,7 +11,8 @@ export default function Signup() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const[age,setAge]=useState('')
+    const [dob, setDob] = useState(new Date());
+    const [batch, setBatch] = useState();
     const [passConfirm, setPassConfirm] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -19,22 +21,16 @@ export default function Signup() {
     const handleSignup = async(e) =>{
         e.preventDefault()
         setError('')
-        if(!name || !email || !pass || !passConfirm||!age){
+        if(!name || !email || !pass || !passConfirm){
             return setError('Please fill all the fields!')
         }
-        if(age<18)
-        {
-            return setError('You are underage to enroll for the Yoga class')
-        }
-        if(age>65)
-        {
-            return setError('You are overage to enroll for the Yoga class')
-        }
+        if(!dobChange(dob)) return;
+
         if(pass !== passConfirm){
             return setError('Password do not match !')
         }
         setLoading(true)
-        const result = await Api.Signup({name:name, email:email, password:pass,age:age})
+        const result = await Api.Signup({name:name, email:email, password:pass, batch, dob})
         if(!result){
             setLoading(false)
             return setError('Something went wrong!')
@@ -48,6 +44,18 @@ export default function Signup() {
         }
         setLoading(false)
     }
+
+    const dobChange = (date) => {
+        setError('');
+        setDob(date);
+        const age = new Date().getFullYear()-date.getFullYear()
+        if(age<18 || age>65) {
+            setError('Invalid Date of birth! your age should between 18 to 65')
+            return false;
+        }
+        return true;
+    }
+
     return (
         <div className={classes.AuthPage}>
             {token? <Redirect to='/home'/>:null}
@@ -86,12 +94,23 @@ export default function Signup() {
                             placeholder='Confirm Password'
                             type='password'
                         /><br/>
-                        <Input                   
-                        value={age}
-                        onChange={(text)=>setAge(text)}
-                        placeholder='Age'
-                        type='age'
-                        /><br/>
+                        <div className={inputClasses.container}>
+                            <input 
+                                className={inputClasses.input}
+                                // value={dob} 
+                                onChange={(e)=>dobChange(new Date(e.target.value))}
+                                placeholder='Date of Birth'
+                                type='date'
+                            />
+                        </div><br/>
+                        <div className={inputClasses.container}>
+                            <select className={inputClasses.input} onChange={(e)=>setBatch(e.target.value)}>
+                                <option>Batch 6-7AM</option>
+                                <option>Batch 7-8AM</option>
+                                <option>Batch 8-9AM</option>
+                                <option>Batch 5-6PM</option>
+                            </select>
+                        </div>
                         <Error message={error}/>
                         <Button loading={loading} variant='primary' type='submit' lable='Signup' />
                     </form><br/>

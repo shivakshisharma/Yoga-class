@@ -32,7 +32,7 @@ module.exports = (app) =>{
             const _id = user.id;
             const data = await User.findOne({_id});
             if(data){
-                return res.status(200).json({email:data.email, name:data.name});
+                return res.status(200).json({email:data.email, name:data.name, batch: data.batch, dob: data.dob});
             }
         } catch(err){
             console.log(err)

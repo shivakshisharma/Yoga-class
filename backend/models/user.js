@@ -7,7 +7,8 @@ const UserSchema = new mongoos.Schema({
     name : {type:String, required:true, unique:false},
     verified: {type:Boolean, default:false, required:false},
     gender : {type:String, required:false},
- 
+    dob: {type: Date, required:false},
+    batch: {type:String, required:false},
 },{collection: 'users'})
 
 const User = mongoos.model('UserSchema',UserSchema)
