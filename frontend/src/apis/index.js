@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie'
-const baseUrl = process.env.NODE_ENV==='development'? 'http://localhost:8081':'https://authentication-example-api.herokuapp.com';  //to change
+const baseUrl ='http://localhost:8081';
 
 const Api = axios.create({
     baseURL:baseUrl,
